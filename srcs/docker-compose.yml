@@ -1,0 +1,42 @@
+version: '3'
+services:
+
+ mysql:
+#  image: mariadb
+  build: mariaDB
+  volumes:
+   - ./mariadb/data:/var/lib/mysql
+#  environment:
+#   MYSQL_ROOT_PASSWORD: 112233kyky
+#   MYSQL_DATABASE: db_wordpress
+#   MYSQL_USER: bwayfare
+#   MYSQL_PASSWORD: 112233kyky
+  restart: always
+
+ wordpress:
+#  image: wordpress
+  build: wordpress
+  volumes:
+   - ./wordpress/data:/var/www/my_site
+  depends_on:
+   - mysql
+#  environment:
+#   WORDPRESS_DB_HOST: mysql
+#   MYSQL_ROOT_PASSWORD: 112233kyky
+#   WORDPRESS_DB_NAME: db_wordpress
+#   WORDPRESS_DB_USER: bwayfare
+#   WORDPRESS_DB_PASSWORD: 112233kyky
+#   WORDPRESS_TABLE_PREFIX: wp_
+  links:
+   - mysql
+  restart: always
+
+ nginx:
+#  image: nginx
+  build: nginx
+  volumes:
+   - ./wordpress/data:/var/www/my_site
+  ports:
+   - 443:443
+  links:
+   - wordpress
