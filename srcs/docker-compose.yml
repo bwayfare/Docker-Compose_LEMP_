@@ -5,7 +5,9 @@ services:
 #  image: mariadb
   build: mariaDB
   volumes:
-   - ./mariadb/data:/var/lib/mysql
+   - ./data/database:/var/lib/mysql
+     #  command:
+          #   - sh start.sh
 #  environment:
 #   MYSQL_ROOT_PASSWORD: 112233kyky
 #   MYSQL_DATABASE: db_wordpress
@@ -17,7 +19,12 @@ services:
 #  image: wordpress
   build: wordpress
   volumes:
-   - ./wordpress/data:/var/www/my_site
+   - ./data/wordpress:/var/www/my_site
+     #  command:
+     #   - mkdir -p /var/www/
+     #   - mv wordpress /var/www/my_site
+     #   - cp . /var/www/my_site/
+     #   - sh start.sh
   depends_on:
    - mysql
 #  environment:
@@ -40,3 +47,6 @@ services:
    - 443:443
   links:
    - wordpress
+
+volumes:
+  data:

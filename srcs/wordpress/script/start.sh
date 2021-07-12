@@ -1,1 +1,1 @@
-service $(ls /etc/init.d | grep php | grep fpm) start
+/usr/sbin/$(ls /usr/sbin/ |grep php | grep fpm) --nodaemonize
