@@ -21,10 +21,9 @@ services:
   volumes:
    - ./data/wordpress:/var/www/my_site
      #  command:
-     #   - mkdir -p /var/www/
-     #   - mv wordpress /var/www/my_site
-     #   - cp . /var/www/my_site/
-     #   - sh start.sh
+          #   - mv /wordpress/* /var/www/my_site/
+          #   - cp /wp-config.php /var/www/my_site/
+          #   - sh start.sh
   depends_on:
    - mysql
 #  environment:

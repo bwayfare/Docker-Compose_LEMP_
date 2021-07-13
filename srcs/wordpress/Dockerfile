@@ -1,19 +1,19 @@
 FROM		debian:buster
 
 RUN		apt-get update \
-		&& apt-get install -y php php-fpm php-mbstring wget unzip vim supervisor
+		&& apt-get install -y php php-fpm php-mbstring wget unzip vim
 
 RUN		mkdir -p /var/www
 
 RUN		wget https://wordpress.org/latest.zip
 RUN		unzip latest.zip && rm -rf latest.zip
-COPY		./conf/wp-config.php .
+RUN		mv /wordpress /var/www/my_site/
+COPY		./conf/wp-config.php /var/www/my_site
 
 COPY		./script/start.sh .
-COPY		./conf/supervisord.conf /etc/supervisord.conf
-EXPOSE		3306
+EXPOSE		9000
+
 RUN		mkdir -p /run/php/
-RUN		touch /run/php/$(ls /etc/init.d/ | grep php | grep fpm).sock
+RUN		mkfifo /run/php/$(ls /etc/init.d/ | grep php | grep fpm).sock
+
 CMD		sh start.sh
-#CMD		/usr/sbin/(grep php-fpm) -g "daemon off;"
-#/usr/sbin/nginx -g "daemon off;"

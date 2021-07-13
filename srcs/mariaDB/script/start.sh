@@ -1,2 +1,1 @@
-service mysql start
-mysql < wp_database.sql
+/usr/bin/mysql_safe < wp_database.sql
