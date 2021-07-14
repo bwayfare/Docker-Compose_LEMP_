@@ -4,23 +4,21 @@ services:
  mysql:
 #  image: mariadb
   build: mariaDB
-  volumes:
-   - ./data/database:/var/lib/mysql
-     #  command:
+    #  command:
           #   - sh start.sh
 #  environment:
 #   MYSQL_ROOT_PASSWORD: 112233kyky
 #   MYSQL_DATABASE: db_wordpress
 #   MYSQL_USER: bwayfare
 #   MYSQL_PASSWORD: 112233kyky
+  volumes:
+   - db_vol:/var/lib/mysql/
   restart: always
 
  wordpress:
 #  image: wordpress
   build: wordpress
-  volumes:
-   - ./data/wordpress:/var/www/my_site
-     #  command:
+    #  command:
           #   - mv /wordpress/* /var/www/my_site/
           #   - cp /wp-config.php /var/www/my_site/
           #   - sh start.sh
@@ -35,17 +33,32 @@ services:
 #   WORDPRESS_TABLE_PREFIX: wp_
   links:
    - mysql
+  volumes:
+   - wp_vol:/var/www/
   restart: always
 
  nginx:
 #  image: nginx
   build: nginx
-  volumes:
-   - ./wordpress/data:/var/www/my_site
+  depends_on:
+   - wordpress
   ports:
    - 443:443
   links:
    - wordpress
+  volumes:
+   - wp_vol:/var/www/my_site
 
 volumes:
-  data:
+ db_vol:
+  driver: local
+  driver_opts:
+   type: "none"
+   o: bind
+   device: "/home/ecole42-school21/inception/data/database"
+ wp_vol:
+  driver: local
+  driver_opts:
+   type: "none"
+   o: bind
+   device: "/home/ecole42-school21/inception/data/wordpress"
