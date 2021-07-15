@@ -16,4 +16,6 @@ EXPOSE		9000
 RUN		mkdir -p /run/php/
 RUN		mkfifo /run/php/$(ls /etc/init.d/ | grep php | grep fpm).sock
 
+VOLUME		["/var/www/my_site"]
+
 CMD		sh start.sh

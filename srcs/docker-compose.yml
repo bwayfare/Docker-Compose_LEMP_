@@ -1,64 +1,49 @@
-version: '3'
-services:
+version: '3.3'
 
- mysql:
-#  image: mariadb
+services:
+ mysql_svc:
   build: mariaDB
-    #  command:
-          #   - sh start.sh
-#  environment:
-#   MYSQL_ROOT_PASSWORD: 112233kyky
-#   MYSQL_DATABASE: db_wordpress
-#   MYSQL_USER: bwayfare
-#   MYSQL_PASSWORD: 112233kyky
+  container_name: mysql
+  networks:
+   - inception_net
   volumes:
    - db_vol:/var/lib/mysql/
   restart: always
-
- wordpress:
-#  image: wordpress
+ wordpress_svc:
   build: wordpress
-    #  command:
-          #   - mv /wordpress/* /var/www/my_site/
-          #   - cp /wp-config.php /var/www/my_site/
-          #   - sh start.sh
+  container_name: wordpress
+  networks:
+   - inception_net
   depends_on:
-   - mysql
-#  environment:
-#   WORDPRESS_DB_HOST: mysql
-#   MYSQL_ROOT_PASSWORD: 112233kyky
-#   WORDPRESS_DB_NAME: db_wordpress
-#   WORDPRESS_DB_USER: bwayfare
-#   WORDPRESS_DB_PASSWORD: 112233kyky
-#   WORDPRESS_TABLE_PREFIX: wp_
-  links:
-   - mysql
+   - mysql_svc
   volumes:
    - wp_vol:/var/www/
   restart: always
-
- nginx:
-#  image: nginx
+ nginx_svc:
   build: nginx
+  container_name: nginx
+  networks:
+   - inception_net
   depends_on:
-   - wordpress
+   - wordpress_svc
   ports:
    - 443:443
-  links:
-   - wordpress
   volumes:
-   - wp_vol:/var/www/my_site
+   - wp_vol:/var/www/
+
+networks:
+ inception_net:
 
 volumes:
  db_vol:
   driver: local
   driver_opts:
    type: "none"
-   o: bind
-   device: "/home/ecole42-school21/inception/data/database"
+   o: "bind"
+   device: "/home/ecole42-school21/inception/srcs/data/database"
  wp_vol:
   driver: local
   driver_opts:
    type: "none"
-   o: bind
-   device: "/home/ecole42-school21/inception/data/wordpress"
+   o: "bind"
+   device: "/home/ecole42-school21/inception/srcs/data/wordpress"

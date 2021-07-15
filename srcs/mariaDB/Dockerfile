@@ -19,6 +19,7 @@ RUN		echo [mysqld] >> /etc/mysql/my.cnf \
 
 COPY		./script/wp_database.sql .
 COPY		./script/start.sh .
+VOLUME		["/var/lib"]
 
 EXPOSE		3306
 CMD 		service mysql start && mysql  < wp_database.sql && tail -F /var/log/mysql/error.log
