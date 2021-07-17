@@ -4,20 +4,12 @@ services:
  mysql_svc:
   build: mariaDB
   container_name: mysql
+  environment:
+   - MYSQL_DATABASE=wordpress
   networks:
    - inception_net
   volumes:
    - db_vol:/var/lib/mysql/
-  restart: always
- wordpress_svc:
-  build: wordpress
-  container_name: wordpress
-  networks:
-   - inception_net
-  depends_on:
-   - mysql_svc
-  volumes:
-   - wp_vol:/var/www/
   restart: always
  nginx_svc:
   build: nginx
@@ -30,6 +22,24 @@ services:
    - 443:443
   volumes:
    - wp_vol:/var/www/
+  extra_hosts:
+   - "bwayfare.42.fr:127.0.0.1"
+ wordpress_svc:
+  build: wordpress
+  container_name: wordpress
+  environment:
+   - WORDPRESS_DB_HOST=db:3306
+   - WORDPRESS_DB_USER=$MYSQL_USER
+   - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
+   - WORDPRESS_DB_NAME=wordpress
+  networks:
+   - inception_net
+  depends_on:
+   - mysql_svc
+  volumes:
+   - wp_vol:/var/www/
+  command: "sh ./start.sh"
+  restart: always
 
 networks:
  inception_net:
@@ -40,10 +50,10 @@ volumes:
   driver_opts:
    type: "none"
    o: "bind"
-   device: "/home/ecole42-school21/inception/srcs/data/database"
+   device: ${PWD}/data/database
  wp_vol:
   driver: local
   driver_opts:
    type: "none"
    o: "bind"
-   device: "/home/ecole42-school21/inception/srcs/data/wordpress"
+   device: ${PWD}/data/wordpress

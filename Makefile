@@ -29,7 +29,10 @@ rm:
 rmi:
 			docker rmi -f $$(docker images -q)
 
+rmv:
+			docker volume rm $$(docker volume ls -q)
+
 logs:
 			cd ./srcs/ && docker-compose logs -f
 
-.PHONY: all nginx wordpress docker-build rm rmi ps down stop logs
+.PHONY: all nginx wordpress docker-build rm rmi ps down stop logs rmv
