@@ -1,1 +1,1 @@
-/usr/bin/mysql_safe < wp_database.sql
+service mysql start && mysql  < wp_database.sql && tail -F /var/log/mysql/error.log

@@ -22,4 +22,5 @@ COPY		./script/start.sh .
 VOLUME		["/var/lib"]
 
 EXPOSE		3306
-CMD 		service mysql start && mysql  < wp_database.sql && tail -F /var/log/mysql/error.log
+CMD			sh ./start.sh
+#CMD 		service mysql start && mysql  < wp_database.sql && tail -F /var/log/mysql/error.log

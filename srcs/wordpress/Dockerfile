@@ -16,6 +16,8 @@ EXPOSE		9000
 RUN		mkdir -p /run/php/
 #RUN		echo "listen = 9000" >> /etc/php7/php-fpm.d/www.conf
 #RUN		mkfifo /run/php/$(ls /etc/init.d/ | grep php | grep fpm).sock
+RUN			sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php/7.3/fpm/pool.d/www.conf \
+			&& echo "listen = 9000" >> /etc/php/7.3/fpm/pool.d/www.conf
 
 VOLUME		["/var/www/my_site"]
 
