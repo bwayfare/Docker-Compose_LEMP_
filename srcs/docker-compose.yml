@@ -5,7 +5,9 @@ services:
   build: mariaDB
   container_name: mysql
   environment:
-   - MYSQL_DATABASE=wordpress
+   - DB_NAME=wordpress
+   - DB_PASSWORD=wordpress
+   - DB_USER=wordpress
   networks:
    - inception_net
   volumes:
@@ -29,8 +31,8 @@ services:
   container_name: wordpress
   environment:
    - DB_HOST=mysql_svc:3306
-   - DB_USER=$MYSQL_USER
-   - DB_PASSWORD=$MYSQL_PASSWORD
+   - DB_USER=wordpress
+   - DB_PASSWORD=wordpress
    - DB_NAME=wordpress
   networks:
    - inception_net

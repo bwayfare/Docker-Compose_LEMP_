@@ -1,7 +1,7 @@
 FROM		debian:buster
 
 RUN		apt-get update \
-		&& apt-get install -y php php-fpm php-mbstring wget unzip vim
+		&& apt-get install -y php php-fpm php-mbstring wget unzip vim php-mysql
 
 RUN		mkdir -p /var/www
 
