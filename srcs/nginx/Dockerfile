@@ -15,9 +15,11 @@ RUN		chown -R www-data /var/www/*
 RUN		chmod -R 755 /var/www/*
 
 COPY		./conf/nginx.conf /etc/nginx/sites-available/my_site.conf
+
 RUN		ln -s /etc/nginx/sites-available/my_site.conf \
 		/etc/nginx/sites-enabled/my_site.conf
 RUN		rm -Rf /etc/nginx/sites-enabled/default
+
 WORKDIR		/
 
 COPY		./script/start.sh .

@@ -3,7 +3,6 @@ FROM		debian:buster
 RUN		apt-get update \
 		&& apt-get upgrade \
 		&& apt-get install -y vim mariadb-server php-mysql
-RUN		cd
 
 RUN		echo [mysqld] >> /etc/mysql/my.cnf \
 		&& echo socket=/var/run/mysqld/mysqld.sock >> /etc/mysql/my.cnf \
@@ -22,5 +21,4 @@ COPY		./script/start.sh .
 VOLUME		["/var/lib"]
 
 EXPOSE		3306
-CMD			sh ./start.sh
-#CMD 		service mysql start && mysql  < wp_database.sql && tail -F /var/log/mysql/error.log
+CMD		sh ./start.sh
