@@ -2,19 +2,16 @@ version: '3.3'
 
 services:
  mysql_svc:
-  build: mariaDB
+  build: ./requirements/mariadb
   container_name: mysql
-  environment:
-   - DB_NAME=wordpress
-   - DB_PASSWORD=wordpress
-   - DB_USER=wordpress
+  env_file: .env
   networks:
    - inception_net
   volumes:
    - db_vol:/var/lib/mysql/
   restart: always
  nginx_svc:
-  build: nginx
+  build: ./requirements/nginx
   container_name: nginx
   networks:
    - inception_net
@@ -25,22 +22,17 @@ services:
   volumes:
    - wp_vol:/var/www/
   extra_hosts:
-   - "bwayfare.42.fr:127.0.0.1"
+   - ${DOMAIN_NAME}:127.0.0.1
  wordpress_svc:
-  build: wordpress
+  build: ./requirements/wordpress
   container_name: wordpress
-  environment:
-   - DB_HOST=mysql_svc:3306
-   - DB_USER=wordpress
-   - DB_PASSWORD=wordpress
-   - DB_NAME=wordpress
+  env_file: .env
   networks:
    - inception_net
   depends_on:
    - mysql_svc
   volumes:
    - wp_vol:/var/www/
-  command: "sh ./start.sh"
   restart: always
 
 networks:
@@ -52,10 +44,10 @@ volumes:
   driver_opts:
    type: "none"
    o: "bind"
-   device: ${PWD}/data/database
+   device: /home/bwayfare/data/database
  wp_vol:
   driver: local
   driver_opts:
    type: "none"
    o: "bind"
-   device: ${PWD}/data/wordpress
+   device: /home/bwayfare/data/wordpress
