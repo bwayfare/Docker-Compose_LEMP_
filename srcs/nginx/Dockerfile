@@ -1,6 +1,7 @@
 FROM		debian:buster
 
 RUN		apt-get update \
+		&& apt-get upgrade -y \
 		&& apt-get install -y nginx vim openssl
 
 RUN		mkdir /etc/nginx/ssl_certs

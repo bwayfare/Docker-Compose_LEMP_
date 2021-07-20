@@ -1,7 +1,7 @@
 FROM		debian:buster
 
 RUN		apt-get update \
-		&& apt-get upgrade \
+		&& apt-get upgrade -y \
 		&& apt-get install -y vim mariadb-server php-mysql
 
 RUN		echo [mysqld] >> /etc/mysql/my.cnf \
