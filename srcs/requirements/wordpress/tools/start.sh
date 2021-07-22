@@ -1,4 +1,4 @@
-if [ ! -d /var/www/my_site/wp-confg.php ]; then
+if [ ! -f /var/www/my_site/wp-confg.php ]; then
 mv ./wp-config.php /var/www/my_site/
 chmod 744 /var/www/my_site/wp-config.php
 
