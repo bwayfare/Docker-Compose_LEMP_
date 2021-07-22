@@ -2,17 +2,11 @@ all:		dc-build
 
 docker-build:	d-nginx d-wordpress d-mysql
 
-nginx:
-			docker build --tag nginx ./srcs/nginx
-
-wordpress:
-			docker build --tag wordpress ./srcs/wordpress
-
-mysql:
-			docker build --tag mariadb ./srcs/mariaDB
-
 dc-build:
 			cd ./srcs/ && docker-compose up -d
+
+re:
+			cd ./srcs/ && docker-compose up --build
 
 ps:
 			cd ./srcs/ && docker-compose ps
@@ -30,6 +24,7 @@ rmi:
 			docker rmi -f srcs_mysql_svc srcs_wordpress_svc srcs_nginx_svc
 
 rmv:
+			sudo rm -rf /home/bwayfare/data/wordpress/* /home/bwayfare/data/database/*
 			docker volume rm $$(docker volume ls -q)
 
 logs:
@@ -49,4 +44,4 @@ info:
 			docker network ls
 
 
-.PHONY: all nginx wordpress docker-build rm rmi ps down stop logs rmv info
+.PHONY: all nginx wordpress docker-build rm rmi ps down stop logs rmv info re
