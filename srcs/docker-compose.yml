@@ -1,9 +1,9 @@
 version: '3.3'
 
 services:
- mysql_svc:
+ mariadb_svc:
   build: ./requirements/mariadb
-  container_name: mysql
+  container_name: mariadb
   env_file: .env
   networks:
    - docker-network
@@ -30,7 +30,7 @@ services:
   networks:
    - docker-network
   depends_on:
-   - mysql_svc
+   - mariadb_svc
   volumes:
    - wp_vol:/var/www/
   restart: always

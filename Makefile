@@ -21,7 +21,7 @@ rm:
 			docker rm $$(docker ps -qa)
 
 rmi:
-			docker rmi -f srcs_mysql_svc srcs_wordpress_svc srcs_nginx_svc
+			docker rmi -f srcs_mariadb_svc srcs_wordpress_svc srcs_nginx_svc
 
 rmv:
 			sudo rm -rf /home/bwayfare/data/wordpress/* /home/bwayfare/data/database/*
