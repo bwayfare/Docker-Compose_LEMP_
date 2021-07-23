@@ -11,9 +11,9 @@ RUN			mkdir -p /var/run/mysqld/ \
 			&& chown -R mysql /var/lib/
 
 COPY		./conf/my.cnf /etc/mysql/
-COPY		./tools/wp_database.sql .
-COPY		./tools/start.sh .
+COPY		./tools/wp_database.sql /tmp
+COPY		./tools/start.sh /tmp
 
 EXPOSE		3306
 
-CMD			sh start.sh
+CMD			sh /tmp/start.sh

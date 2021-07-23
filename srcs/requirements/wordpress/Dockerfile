@@ -12,8 +12,8 @@ RUN			mkdir -p /var/www/my_site \
 			&& wp core download --allow-root \
 			&& cd /
 
-COPY		./conf/wp-config.php .
-COPY		./tools/start.sh .
+COPY		./conf/wp-config.php /tmp
+COPY		./tools/start.sh /tmp
 
 RUN			mkdir -p /run/php/ \
 			&& sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php/7.3/fpm/pool.d/www.conf \
@@ -21,4 +21,4 @@ RUN			mkdir -p /run/php/ \
 
 EXPOSE		9000
 
-CMD			sh start.sh
+CMD			sh /tmp/start.sh

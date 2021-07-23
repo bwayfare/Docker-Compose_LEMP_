@@ -1,5 +1,6 @@
-if [ ! -f /var/www/my_site/wp-confg.php ]; then
-mv ./wp-config.php /var/www/my_site/
+if [ ! -f /tmp/success ]; then
+cp /tmp/wp-config.php /var/www/my_site/
+mv /tmp/wp-config.php /tmp/success
 chmod 744 /var/www/my_site/wp-config.php
 
 sed -i "s/CONF_NAME/$SQL_DB_NAME/g" /var/www/my_site/wp-config.php
