@@ -14,8 +14,7 @@ wp core install --allow-root \
         --admin_user=$WP_CONF_ADMIN_NICK \
         --admin_password=$WP_CONF_ADMIN_PASS \
         --admin_email=$WP_CONF_ADMIN_EMAIL
-    wp user create --allow-root $WP_CONF_USER_NICK $WP_CONF_USER_EMAIL --user_pass=$WP_CONF_USER_PASS
-
+wp user create --allow-root $WP_CONF_USER_NICK $WP_CONF_USER_EMAIL --user_pass=$WP_CONF_USER_PASS
 fi
 
 /usr/sbin/$(ls /usr/sbin/ |grep php | grep fpm) --nodaemonize

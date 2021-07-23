@@ -2,7 +2,7 @@ FROM		debian:buster
 
 RUN			apt-get update \
 			&& apt-get upgrade -y \
-			&& apt-get install -y nginx vim openssl
+			&& apt-get install -y nginx openssl
 
 COPY		./conf/nginx.conf .
 
@@ -16,6 +16,6 @@ RUN			mv ./nginx.conf /etc/nginx/sites-available/my_site.conf \
 			&& ln -s /etc/nginx/sites-available/my_site.conf /etc/nginx/sites-enabled/my_site.conf \
     		&& rm -Rf /etc/nginx/sites-enabled/default \
     		&& chown -R www-data /var/www/* \
-			&& chmod -R 755 /var/www/*
+			&& chmod -R 744 /var/www/*
 
 ENTRYPOINT	/usr/sbin/nginx -g "daemon off;"

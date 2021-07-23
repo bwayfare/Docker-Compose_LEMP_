@@ -2,7 +2,7 @@ FROM		debian:buster
 
 RUN			apt-get update \
 			&& apt-get upgrade -y \
-			&& apt-get install -y php php-fpm php-mbstring wget unzip vim php-mysql
+			&& apt-get install -y php php-fpm php-mbstring wget unzip php-mysql
 
 RUN			mkdir -p /var/www/my_site \
 			&& wget -P /usr/bin/ https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \

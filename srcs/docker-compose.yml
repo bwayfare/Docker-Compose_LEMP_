@@ -6,7 +6,7 @@ services:
   container_name: mysql
   env_file: .env
   networks:
-   - inception_net
+   - docker-network
   volumes:
    - db_vol:/var/lib/mysql/
   restart: always
@@ -14,7 +14,7 @@ services:
   build: ./requirements/nginx
   container_name: nginx
   networks:
-   - inception_net
+   - docker-network
   depends_on:
    - wordpress_svc
   ports:
@@ -28,7 +28,7 @@ services:
   container_name: wordpress
   env_file: .env
   networks:
-   - inception_net
+   - docker-network
   depends_on:
    - mysql_svc
   volumes:
@@ -36,7 +36,7 @@ services:
   restart: always
 
 networks:
- inception_net:
+ docker-network:
 
 volumes:
  db_vol:
