@@ -6,7 +6,7 @@ chmod 744 /var/www/my_site/wp-config.php
 sed -i "s/CONF_NAME/$SQL_DB_NAME/g" /var/www/my_site/wp-config.php
 sed -i "s/CONF_USER/$SQL_DB_USER/g" /var/www/my_site/wp-config.php
 sed -i "s/CONF_PASS/$SQL_DB_PASSWORD/g" /var/www/my_site/wp-config.php
-sed -i "s/CONF_HOST/$SQL_DB_HOST:$DB_PORT/g" /var/www/my_site/wp-config.php
+sed -i "s/CONF_HOST/$SQL_DB_HOST/g" /var/www/my_site/wp-config.php
 
 cd /var/www/my_site
 wp core install --allow-root \

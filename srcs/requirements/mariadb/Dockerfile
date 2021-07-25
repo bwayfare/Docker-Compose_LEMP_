@@ -2,7 +2,7 @@ FROM		debian:buster
 
 RUN			apt-get update \
 			&& apt-get upgrade -y \
-			&& apt-get install -y vim mariadb-server
+			&& apt-get install -y mariadb-server
 
 RUN			mkdir -p /var/run/mysqld/ \
     		&& chmod -R 744 /var/run/mysqld/ \

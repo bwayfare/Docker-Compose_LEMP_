@@ -13,6 +13,7 @@ services:
  nginx_svc:
   build: ./requirements/nginx
   container_name: nginx
+  env_file: .env
   networks:
    - docker-network
   depends_on:
@@ -44,10 +45,10 @@ volumes:
   driver_opts:
    type: "none"
    o: "bind"
-   device: /home/bwayfare/data/database
+   device: /home/${USER}/data/database
  wp_vol:
   driver: local
   driver_opts:
    type: "none"
    o: "bind"
-   device: /home/bwayfare/data/wordpress
+   device: /home/${USER}/data/wordpress
